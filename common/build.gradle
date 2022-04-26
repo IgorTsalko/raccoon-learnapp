@@ -29,3 +29,7 @@ publishing {
 		}
 	}
 }
+
+publishToMavenLocal {
+	dependsOn clean
+}

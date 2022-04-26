@@ -42,3 +42,11 @@ configurations.all {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+task servicePreparation {
+    group 'build'
+    dependsOn ':common:publishToMavenLocal'
+    dependsOn 'clean'
+    dependsOn 'build'
+    build.shouldRunAfter(clean)
+}
