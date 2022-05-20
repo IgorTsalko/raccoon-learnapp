@@ -1,4 +1,4 @@
-package com.raccoon.learnapp.common.security;
+package com.raccoon.learnapp.auth.token;
 
 public class JwtTokenHandler implements IJwtTokenHandler {
 }

@@ -4,22 +4,37 @@ plugins {
 }
 
 group = 'com.raccoon.learnapp'
-version = '0.0.1-SNAPSHOT'
+version = '0.7-SNAPSHOT'
 sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
 }
 
-dependencies {
-	implementation 'org.springframework:spring-webmvc:5.3.19'
-	implementation 'org.springframework.security:spring-security-config:5.6.3'
-	implementation 'org.springframework.security:spring-security-web:5.6.3'
-	compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
-	implementation 'org.apache.commons:commons-lang3:3.12.0'
+ext {
+	springWebMvcVersion = '5.3.20'
+	springSecurityVersion = '5.7.1'
+	springBootStarterLog4j2Version = '2.6.7'
+	servletApiVersion = '4.0.1'
+	apacheCommonsLangVersion = '3.12.0'
+	lombokVersion = '1.18.24'
+}
 
-	compileOnly 'org.projectlombok:lombok:1.18.24'
-	annotationProcessor 'org.projectlombok:lombok:1.18.24'
+dependencies {
+	implementation "org.springframework:spring-webmvc:${springWebMvcVersion}"
+	implementation "org.springframework.security:spring-security-config:${springSecurityVersion}"
+	implementation "org.springframework.security:spring-security-web:${springSecurityVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-log4j2:${springBootStarterLog4j2Version}"
+	compileOnly "javax.servlet:javax.servlet-api:${servletApiVersion}"
+	implementation "org.apache.commons:commons-lang3:${apacheCommonsLangVersion}"
+
+	compileOnly "org.projectlombok:lombok:${lombokVersion}"
+	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+}
+
+configurations.all {
+	exclude module: 'spring-boot-starter-logging'
+	exclude module: 'hamcrest-core'
 }
 
 publishing {

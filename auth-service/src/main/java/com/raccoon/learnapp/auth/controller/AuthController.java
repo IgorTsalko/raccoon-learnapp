@@ -1,7 +1,7 @@
 package com.raccoon.learnapp.auth.controller;
 
 import com.raccoon.learnapp.auth.model.Credentials;
-import com.raccoon.learnapp.auth.model.Token;
+import com.raccoon.learnapp.auth.model.TokenDTO;
 import com.raccoon.learnapp.auth.service.IAuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +17,7 @@ public class AuthController {
     private final IAuthService authService;
 
     @PostMapping("/issue-token")
-    public Token loginUser(@RequestBody Credentials credentials) {
+    public TokenDTO loginUser(@RequestBody Credentials credentials) {
         return authService.loginUser(credentials);
     }
 }

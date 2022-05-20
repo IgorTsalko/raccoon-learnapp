@@ -27,4 +27,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         ExceptionResponse response = new ExceptionResponse(httpStatus.value(), message);
         return new ResponseEntity<>(response, httpStatus);
     }
+
+    @ExceptionHandler(Exception.class)
+    protected ResponseEntity<Object> handleException(Exception exception, Locale locale) {
+        HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        ExceptionResponse response = new ExceptionResponse(httpStatus.value(), exception.getMessage());
+        return new ResponseEntity<>(response, httpStatus);
+    }
 }

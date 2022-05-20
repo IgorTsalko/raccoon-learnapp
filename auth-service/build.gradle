@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.raccoon.learnapp'
-version = '0.0.1-SNAPSHOT'
+version = '0.5-SNAPSHOT'
 sourceCompatibility = '11'
 
 // todo: is it needed?
@@ -20,10 +20,19 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    jwtVersion = '3.19.2'
+    raccoonCommonVersion = '0.7-SNAPSHOT'
+}
+
 dependencies {
+    implementation "com.raccoon.learnapp:common:${raccoonCommonVersion}"
+
     // todo: control versions
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.security:spring-security-crypto'
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation "com.auth0:java-jwt:${jwtVersion}"
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
@@ -31,10 +40,20 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
 }
 
+configurations.all {
+    exclude module: 'spring-boot-starter-logging'
+    exclude module: 'hamcrest-core'
+}
+
 tasks.named('test') {
     useJUnitPlatform()
 }
 
-jar {
-    enabled = false
+task servicePreparation {
+    group 'build'
+    dependsOn ':common:publishToMavenLocal'
+    dependsOn 'clean'
+    dependsOn 'build'
+    clean.shouldRunAfter(':common:publishToMavenLocal')
+    build.shouldRunAfter(clean)
 }

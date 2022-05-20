@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.raccoon.learnapp'
-version = '0.0.1-SNAPSHOT'
+version = '0.2-SNAPSHOT'
 sourceCompatibility = '11'
 
 repositories {
@@ -13,8 +13,13 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    raccoonCommonVersion = '0.7-SNAPSHOT'
+    mapstructVersion = '1.4.2.Final'
+}
+
 dependencies {
-    implementation 'com.raccoon.learnapp:common:0.0.1-SNAPSHOT'
+    implementation "com.raccoon.learnapp:common:${raccoonCommonVersion}"
 
     // todo: control versions
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -26,8 +31,8 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-    compileOnly 'org.mapstruct:mapstruct:1.4.2.Final'
-    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+    compileOnly "org.mapstruct:mapstruct:${mapstructVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testCompileOnly 'org.projectlombok:lombok'
@@ -48,5 +53,6 @@ task servicePreparation {
     dependsOn ':common:publishToMavenLocal'
     dependsOn 'clean'
     dependsOn 'build'
+    clean.shouldRunAfter(':common:publishToMavenLocal')
     build.shouldRunAfter(clean)
 }

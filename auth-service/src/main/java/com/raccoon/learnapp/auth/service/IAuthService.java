@@ -1,9 +1,9 @@
 package com.raccoon.learnapp.auth.service;
 
 import com.raccoon.learnapp.auth.model.Credentials;
-import com.raccoon.learnapp.auth.model.Token;
+import com.raccoon.learnapp.auth.model.TokenDTO;
 
 public interface IAuthService {
 
-    Token loginUser(Credentials credentials);
+    TokenDTO loginUser(Credentials credentials);
 }
